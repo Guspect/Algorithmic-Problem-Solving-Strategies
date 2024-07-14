@@ -28,9 +28,9 @@ public class Main {
 
         for(int i = 1; i*i <= n; i++){
             if(dp[n] == null){
-                dp[n] = dp[i*i] + dp[n-i*i];
+                dp[n] = 1 + dp[n-i*i];
             }else {
-                dp[n] = Math.min(dp[n], dp[i * i] + dp[n - i * i]);
+                dp[n] = Math.min(dp[n], 1 + dp[n - i * i]);
             }
         }
     }
