@@ -21,18 +21,45 @@ public class Main {
     }
     public static int find(String s, String t){
         int cnt = 0;
-        for(int i = 0; i < s.length(); i++){
-            if(s.length() - i < t.length()){
-                break;
-            }
-            if(s.charAt(i) == 'I'){
-                String temp = s.substring(i,i+t.length());
+        int idx = 0;
+        while(s.length() - idx >= t.length()){
+            if(s.charAt(idx) == 'I'){
+                String temp = s.substring(idx, idx + t.length());
                 if(temp.equals(t)){
                     cnt++;
+                    while(true){
+                        try {
+                            if (s.substring(idx + t.length(), idx + t.length() + 2).equals("OI")) {
+                                cnt++;
+                                idx += 2;
+
+                            } else {
+                                idx = idx + t.length();
+                                break;
+                            }
+                        }catch (StringIndexOutOfBoundsException e){
+                            idx++;
+                            break;
+                        }
+                    }
+                }else {
+                    idx += diff_idx(temp,t);
                 }
+            }else{
+                idx++;
             }
         }
         return cnt;
     }
+
+    public static int diff_idx(String s, String t){
+        for(int i = 1; i < s.length(); i++){
+            if(s.charAt(i) != t.charAt(i)){
+                return i;
+            }
+        }
+        return 0;
+    }
+
 
 }
